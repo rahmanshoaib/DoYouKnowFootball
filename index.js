@@ -1,25 +1,16 @@
-var readlineSync = require('readline-sync');
+let readlineSync = require('readline-sync');
+
 const chalk = require('chalk');
 
-var userName = readlineSync.question("Enter your name: ");
+let userName = readlineSync.question("Enter your name: ");
 
-console.log(chalk.blue("\nWelcome " + userName + "! to play FOOTBALL QUIZ Beginner level..."));
+let score = 0;
 
-var score = 0;
+const highScore = 7;
 
-let highScore = 7;
+const blue = chalk.blue;
 
-function play(question, answer) {
-
-  var userAnswer = readlineSync.question(question);
-
-  if (userAnswer.toUpperCase() === answer.toUpperCase()) {
-    console.log(chalk.green("Correct!"));
-    score = score + 1;
-  }
-  else
-    console.log(chalk.red("Wrong!"));
-}
+const yellow = chalk.yellow;
 
 let questions = [
   {
@@ -67,27 +58,47 @@ let advanceQuestions = [
   }
 ];
 
+console.log(blue("\nWelcome " + userName + "! to play FOOTBALL QUIZ Beginner level..."));
+
+function play(question, answer) {
+
+  var userAnswer = readlineSync.question(question);
+
+  if (userAnswer.toUpperCase() === answer.toUpperCase()) {
+    console.log(chalk.green("Correct!"));
+    score = score + 1;
+  }
+  else
+    console.log(chalk.red("Wrong!"));
+}
 
 for (let i = 0; i < questions.length; i++) {
+  
   let currentQuestion = questions[i];
+  
   play(currentQuestion.question, currentQuestion.answer);
 }
 
-console.log(chalk.yellow("\nYou Scored: "+ score + " out of 5 \n"));
+console.log(yellow("\nYou Scored: "+ score + " out of 5 \n"));
 
 if (score === 5){
-  console.log(chalk.blue("Congratulations! You scored 5 out of 5 \nYou moved to advance level..."));
+
+  console.log(blue("Congratulations! You scored 5 out of 5 \nYou moved to advance level..."));
 
   for (let i = 0; i < advanceQuestions.length; i++) {
+  
   let currentQuestion = advanceQuestions[i];
+  
   play(currentQuestion.question, currentQuestion.answer);
+
 }
-  console.log(chalk.yellow("\nYou Scored: "+ score + " out of 10 \nHigh Score: 7"));
+
+  console.log(yellow("\nYou Scored: "+ score + " out of 10 \nHigh Score: 7"));
 
 }
 else
-  console.log(chalk.blue("Score 5 out of 5 to play advance level"));
+  console.log(blue("Score 5 out of 5 to play advance level"));
 
 if(score > highScore)
-  console.log(chalk.blue("\nCongratulations! You beat the high score!!!"))
+  console.log(blue("\nCongratulations! You beat the high score!!!"))
   
